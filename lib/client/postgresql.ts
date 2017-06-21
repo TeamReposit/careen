@@ -24,14 +24,14 @@ export function disconnect(db: Client) {
 
 // Run an SQL query and accumulate the result rows.
 function runQuery(db: Client, sql: string, values?: any[]): Promise<QueryResult> {
-  let query = db.query(sql, values);
-  query.on('row', (row, result) => result.addRow(row));
   return new Promise(function(
     resolve: (value: QueryResult) => void,
     reject: (reason: any) => void
   ) {
-    query.once('error', reject);
-    query.once('end', resolve);
+    db.query(sql, values, function(err, result) {
+      if (err) return reject(err);
+      resolve(result);
+    });
   });
 }
 

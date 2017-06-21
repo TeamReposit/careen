@@ -12,10 +12,10 @@ export class ConfigError extends StandardError {
 
 export class ConfigTypeError extends ConfigError {
   constructor(key: string, expected: string, actual: string) {
+    super(`Expected ${key} to have type ${expected}, got ${actual}`);
     this.key = key;
     this.expected = expected;
     this.actual = actual;
-    super(`Expected ${key} to have type ${expected}, got ${actual}`);
   }
 
   static assert(key: string, expected: string, value: any): void {
@@ -30,10 +30,11 @@ function enumStrings(enumObject: any) {
 
 export class ConfigEnumError extends ConfigError {
   constructor(key: string, enumObject: any, actual: string) {
+    var expected = enumStrings(enumObject).join(', ');
+    super(`Expected ${key} to be one of ${expected}; got ${actual}`);
     this.key = key;
-    this.expected = enumStrings(enumObject).join(', ');
+    this.expected = expected;
     this.actual = actual;
-    super(`Expected ${key} to be one of ${this.expected}; got ${actual}`);
   }
 }
 

@@ -1,6 +1,6 @@
 {
-  "name": "careen",
-  "version": "0.1.1",
+  "name": "@simontabor/careen",
+  "version": "0.2.0",
   "description": "SQL schema migration. Nothing more. Nothing less.",
   "main": "lib/index.js",
   "bin": {
